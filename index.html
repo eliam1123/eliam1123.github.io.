@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ka-Lai 💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffeef5;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff4d88;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-family: inherit;
+        }
+
+        #yes {
+            background-color: #ff4d88;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 136, 0.3);
+        }
+
+        #no {
+            background-color: #ffffff;
+            color: #ff4d88;
+            border: 2px solid #ff4d88;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-content">
+        <h1>Ka-Lai, ¿quieres ser mi San Valentín? 💖</h1>
+        <div class="buttons">
+            <button id="yes">¡SÍ! 😍</button>
+            <button id="no">No 😢</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("no");
+        const yesBtn = document.getElementById("yes");
+
+        let attempts = 0;
+
+        function moveButton() {
+            attempts++;
+
+            // Temblor
+            noBtn.style.transition = "0.05s";
+            noBtn.style.transform = "translate(2px, -2px)";
+            setTimeout(() => {
+                noBtn.style.transform = "translate(-2px, 2px)";
+            }, 50);
+
+            setTimeout(() => {
+                const btnWidth = noBtn.offsetWidth;
+                const btnHeight = noBtn.offsetHeight;
+
+                // Margen para que no se salga de la pantalla
+                const maxX = window.innerWidth - btnWidth;
+                const maxY = window.innerHeight - btnHeight;
+
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+
+                noBtn.style.position = "fixed";
+                noBtn.style.left = randomX + "px";
+                noBtn.style.top = randomY + "px";
+                noBtn.style.transition = "0.3s";
+            }, 100);
+
+            if (attempts === 5) {
+                const msg = document.createElement("div");
+                msg.innerHTML = "Ka-Lai… no te hagas 😏💖";
+                msg.style.position = "fixed";
+                msg.style.bottom = "20px";
+                msg.style.left = "50%";
+                msg.style.transform = "translateX(-50%)";
+                msg.style.background = "#ff4d88";
+                msg.style.color = "white";
+                msg.style.padding = "10px 20px";
+                msg.style.borderRadius = "20px";
+                msg.style.fontFamily = "Comic Sans MS, cursive";
+                msg.style.boxShadow = "0 5px 15px rgba(0,0,0,0.2)";
+                msg.style.zIndex = "1000";
+                document.body.appendChild(msg);
+
+                setTimeout(() => msg.remove(), 3000);
+            }
+        }
+
+        noBtn.addEventListener("mouseover", moveButton);
+        noBtn.addEventListener("touchstart", moveButton);
+
+        yesBtn.addEventListener("click", () => {
+            document.body.innerHTML = `
+                <div style="
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                    height:100vh;
+                    background:linear-gradient(180deg,#ffd6e8,#ffeef5);
+                    font-family:'Comic Sans MS', cursive;
+                    text-align:center;
+                    overflow:hidden;
+                ">
+                    <h1 style="color:#ff4d88; font-size: 3rem;">Sabía que dirías que sí, Ka-Lai 💘</h1>
+                    <p style="font-size:24px;">Eres mi San Valentín 🐱🎀</p>
+                    <p style="font-size:20px;">Te amo muchísimo 💖</p>
+                </div>
+            `;
+
+            // Confetti
+            for (let i = 0; i < 80; i++) {
+                const confetti = document.createElement("div");
+                confetti.innerHTML = "💖";
+                confetti.style.position = "fixed";
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.top = "-20px";
+                confetti.style.fontSize = Math.random() * 20 + 15 + "px";
+                confetti.style.animation = "fall 3s linear forwards";
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        });
+
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes fall {
+                to {
+                    transform: translateY(110vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
